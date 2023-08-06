@@ -1,0 +1,47 @@
+{
+  "name": "fakeexchange",
+  "short_name": "fakeexchange",
+  "start_url": "https://isfahanseo.com/fakeexchange",
+  "display": "standalone",
+  "display_override": [
+    "fullscreen",
+    "minimal-ui"
+  ],
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "img/icons/favicon-16x16.png?v=1.1",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icons/favicon-32x32.png?v=1.1",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icons/apple-touch-icon.png?v=1.1",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icons/android-chrome-192x192.png?v=1.1",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icons/android-chrome-512x512.png?v=1.1",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "background_color": "#ffffff",
+  "theme_color": "#2393D9",
+  "categories": [
+    "magazines",
+    "shopping",
+    "sports",
+    "business",
+    "lifestyle"
+  ]
+}

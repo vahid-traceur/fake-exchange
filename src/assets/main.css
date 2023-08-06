@@ -1,10 +1,11 @@
 @font-face {
     font-family: Rubik;
-    src: url('fonts/Rubik-Regular.ttf') format("truetype");
+    src: url('fonts/HarmonyOS_Sans_Regular.ttf') format("truetype");
     font-weight: 400;
     /*unicode-range: u+20-7e*/
 }
 
 * {
     font-family: Rubik, sans-serif;
+    font-weight: normal;
 }

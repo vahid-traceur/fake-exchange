@@ -1,7 +1,7 @@
 <template>
   <v-card class="px-4" color="transparent" flat>
     <v-tabs v-model="tab" align-tabs="title" bg-color="transparent">
-      <v-tab v-for="item in items" :key="item" :value="item" class="ma-0">
+      <v-tab v-for="(item, i) in items" :key="i" :class="{'text-grey' : item !== tab}" :value="item" class="ma-0">
         {{ item }}
       </v-tab>
     </v-tabs>
@@ -78,7 +78,7 @@
 
           <v-spacer/>
 
-          <v-btn color="success" prepend-icon="mdi-plus" rounded="lg" variant="flat" @click="addToList">
+          <v-btn color="rgb(32, 172, 149)" prepend-icon="mdi-plus" rounded="lg" variant="flat" @click="addToList">
             add to list
           </v-btn>
         </v-card-actions>
@@ -87,9 +87,10 @@
       <v-window-item value="Trade History">
         <template v-for="(c, i) in cards" :key="i">
           <v-card color="transparent" flat>
-            <v-card-title class="px-0">{{ c.filled }}/USDT</v-card-title>
+            <v-card-title class="px-0 font-weight-bold">{{ c.filled }}/USDT</v-card-title>
             <v-card-subtitle class="px-0">
-              <v-chip :color="c.short ? 'success' : 'red'" rounded="lg" size="small" variant="outlined">
+              <v-chip :color="c.short ? 'rgb(32, 172, 149)' : 'rgb(226, 70, 74)'" rounded="lg" size="small"
+                      variant="outlined">
                 Close {{ c.short ? 'Short' : 'Long' }}
               </v-chip>
               <v-chip class="ml-2" rounded="lg" size="small" variant="outlined">{{ c.status }}</v-chip>
@@ -102,7 +103,7 @@
                   Filled({{ c.filled }})
                 </v-card-text>
                 <v-spacer/>
-                <b>{{ c.value }}</b>
+                <span>{{ c.value }}</span>
               </v-col>
 
               <v-col class="d-flex align-center" cols="12">
@@ -110,7 +111,7 @@
                   Price
                 </v-card-text>
                 <v-spacer/>
-                <b>{{ c.price }}</b>
+                <span>{{ c.price }}</span>
               </v-col>
 
               <v-col class="d-flex align-center" cols="12">
@@ -120,7 +121,9 @@
 
                 <v-spacer/>
 
-                <b :class="c.realized.indexOf('-') >= 0 ? 'text-red-darken-3' : 'text-green'">{{ c.realized }}</b>
+                <span :style="`color: ${c.realized.indexOf('-') >= 0 ? 'rgb(226, 70, 74)' : 'rgb(32, 172, 149)'}`">
+                  {{ c.realized }}
+                </span>
               </v-col>
 
               <v-col class="d-flex align-center" cols="12">
@@ -128,7 +131,7 @@
                   Trading Fee(USDT)
                 </v-card-text>
                 <v-spacer/>
-                <b>{{ c.tradingFee }}</b>
+                <span>{{ c.tradingFee }}</span>
               </v-col>
 
               <v-col class="d-flex align-center" cols="12">
@@ -162,7 +165,7 @@
 export default {
   data() {
     return {
-      tab: 1,
+      tab: 'Trade History',
       items: [
         'Order History', 'Trade History', 'Transaction History'
       ],
