@@ -2,14 +2,15 @@
   "name": "fake-exchange",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview",
-    "lint": "eslint . --fix --ignore-path .gitignore"
+    "lint": "eslint . --fix --ignore-path .gitignore",
+    "dev": "vite",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@mdi/font": "7.0.96",
     "pinia": "^2.0.23",
+    "register-service-worker": "^1.7.2",
     "roboto-fontface": "*",
     "vue": "^3.2.38",
     "vue-router": "^4.0.0",
@@ -20,6 +21,7 @@
     "@types/node": "^18.11.9",
     "@types/webfontloader": "^1.6.35",
     "@vitejs/plugin-vue": "^3.0.3",
+    "@vue/cli-plugin-pwa": "~5.0.0",
     "@vue/eslint-config-typescript": "^11.0.0",
     "eslint": "^8.22.0",
     "eslint-plugin-vue": "^9.3.0",

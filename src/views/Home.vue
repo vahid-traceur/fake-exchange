@@ -30,7 +30,61 @@
     <v-divider/>
 
     <v-window v-model="tab" class="bg-transparent">
-      <v-window-item v-for="item in items" :key="item" :value="item">
+      <v-window-item value="Order History">
+        <v-card-text>
+          <v-row no-gutters>
+            <v-col cols="12">
+              <v-checkbox v-model="obj.short" label="short/long"/>
+            </v-col>
+
+            <v-col cols="12">
+              <v-select v-model="obj.status" :items="['Isolated', 'Cross']" label="status"/>
+            </v-col>
+
+            <v-col cols="12">
+              <v-text-field v-model="obj.multiple" label="multiple"/>
+            </v-col>
+
+            <v-col cols="12">
+              <v-text-field v-model="obj.filled" label="filled"/>
+            </v-col>
+
+            <v-col cols="12">
+              <v-text-field v-model="obj.value" label="filled value"/>
+            </v-col>
+
+            <v-col cols="12">
+              <v-text-field v-model="obj.price" label="price"/>
+            </v-col>
+
+            <v-col cols="12">
+              <v-text-field v-model="obj.realized" label="realized"/>
+            </v-col>
+
+            <v-col cols="12">
+              <v-text-field v-model="obj.tradingFee" label="trading fee"/>
+            </v-col>
+
+            <v-col cols="12">
+              <v-text-field v-model="obj.date" label="date"/>
+            </v-col>
+          </v-row>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-btn color="error" rounded="lg" variant="outlined" @click="obj = temp">
+            reset
+          </v-btn>
+
+          <v-spacer/>
+
+          <v-btn color="success" prepend-icon="mdi-plus" rounded="lg" variant="flat" @click="addToList">
+            add to list
+          </v-btn>
+        </v-card-actions>
+      </v-window-item>
+
+      <v-window-item value="Trade History">
         <template v-for="(c, i) in cards" :key="i">
           <v-card color="transparent" flat>
             <v-card-title class="px-0">{{ c.filled }}/USDT</v-card-title>
@@ -90,6 +144,16 @@
           <v-divider class="mt-2"/>
         </template>
       </v-window-item>
+
+      <v-window-item value="Transaction History">
+        <v-text-field v-model="deleteIndex" label="delete item"/>
+
+        <v-card-actions>
+          <v-btn :disabled="deleteIndex < 0" variant="flat" @click="deleteItem">
+            delete
+          </v-btn>
+        </v-card-actions>
+      </v-window-item>
     </v-window>
   </v-card>
 </template>
@@ -102,6 +166,30 @@ export default {
       items: [
         'Order History', 'Trade History', 'Transaction History'
       ],
+      obj: {
+        short: true,
+        status: 'Isolated',
+        multiple: 5,
+        filled: 'MKR',
+        value: '0.017',
+        price: '1,101.3',
+        realized: '-3.7077',
+        tradingFee: '-0.0112',
+        date: '2023-07-29 11:04:05',
+        icon: false
+      },
+      temp: {
+        short: true,
+        status: 'Isolated',
+        multiple: 5,
+        filled: 'MKR',
+        value: '0.017',
+        price: '1,101.3',
+        realized: '-3.7077',
+        tradingFee: '-0.0112',
+        date: '2023-07-29 11:04:05',
+        icon: false
+      },
       cards: [
         {
           short: true,
@@ -192,8 +280,38 @@ export default {
           date: '2023-07-23 15:35:47',
           icon: true
         },
-      ]
+      ],
+      deleteIndex: -1
     }
   },
+
+  mounted() {
+    let c = localStorage.getItem('cards');
+
+    if (c) {
+      this.cards = JSON.parse(c)
+    }
+  },
+
+  methods: {
+    addToList() {
+      let c = this.cards
+      c.unshift(this.obj)
+      localStorage.setItem('cards', JSON.stringify(c))
+
+      this.obj = this.temp
+      this.tab = 1
+    },
+    deleteItem() {
+      let index = this.deleteIndex >= this.cards.length
+        ? this.cards.length - 1
+        : this.deleteIndex < 0 ? 0 : this.deleteIndex
+
+      this.cards.splice(index, 1)
+
+      localStorage.setItem('cards', JSON.stringify(this.cards))
+      this.deleteIndex = -1
+    }
+  }
 }
 </script>
