@@ -17,6 +17,7 @@ export default defineConfig({
       autoImport: true,
     }),
   ],
+  base: '/fakeexchange/',
   define: {'process.env': {}},
   resolve: {
     alias: {
