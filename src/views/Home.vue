@@ -304,13 +304,36 @@ export default {
 
   methods: {
     async addToList() {
-      this.cards.unshift(this.obj)
+      try {
+        this.cards.unshift(this.obj)
 
-      await nextTick()
-      localStorage.setItem('cards', JSON.stringify(this.cards))
+        console.log('cards: ', this.cards);
+        console.log('obj: ', this.obj);
 
-      this.obj = this.temp
-      this.tab = 1
+        // this.obj = null
+        // this.obj = this.temp
+        // return
+
+        await nextTick()
+        localStorage.setItem('cards', JSON.stringify(this.cards))
+
+        this.obj = null
+        this.obj = {
+          short: true,
+          status: 'Isolated',
+          multiple: 5,
+          filled: 'MKR',
+          value: '0.017',
+          price: '1,101.3',
+          realized: '-3.7077',
+          tradingFee: '-0.0112',
+          date: '2023-07-29 11:04:05',
+          icon: false
+        }
+        this.tab = 1
+      } catch (e) {
+        console.log('error: ', e)
+      }
     },
     deleteItem() {
       let index = this.deleteIndex >= this.cards.length
