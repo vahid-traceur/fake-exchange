@@ -68,6 +68,10 @@
             <v-col cols="12">
               <v-text-field v-model="obj.date" label="date"/>
             </v-col>
+
+            <v-col cols="12">
+              <v-checkbox v-model="obj.icon" label="bottom icon"/>
+            </v-col>
           </v-row>
         </v-card-text>
 
@@ -162,6 +166,8 @@
 </template>
 
 <script>
+import {nextTick} from "vue";
+
 export default {
   data() {
     return {
@@ -288,7 +294,7 @@ export default {
     }
   },
 
-  mounted() {
+  async mounted() {
     let c = localStorage.getItem('cards');
 
     if (c) {
@@ -297,10 +303,11 @@ export default {
   },
 
   methods: {
-    addToList() {
-      let c = this.cards
-      c.unshift(this.obj)
-      localStorage.setItem('cards', JSON.stringify(c))
+    async addToList() {
+      this.cards.unshift(this.obj)
+
+      await nextTick()
+      localStorage.setItem('cards', JSON.stringify(this.cards))
 
       this.obj = this.temp
       this.tab = 1
